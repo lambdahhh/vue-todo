@@ -1,9 +1,7 @@
 <template>
   <Header />
-  <StatusBar />
-  <TodoList
-      :todos="todos"
-  />
+  <StatusBar :todosCount="todosCount" />
+  <TodoList :todos="todos" />
 </template>
 
 <script>
@@ -29,7 +27,19 @@ export default {
         {id: 11, title: 'Rust', completed: false, important: false},
         {id: 12, title: 'TypeScript', completed: false, important: false},
         {id: 13, title: 'C', completed: false, important: false},
-      ]
+      ],
+    }
+  },
+  computed: {
+    todosCount() {
+      const completed = this.todos.filter(todo => todo.completed === true).length;
+      const important = this.todos.filter(todo => todo.important === true).length;
+
+      return {
+        all: this.todos.length,
+        completed: completed,
+        important: important
+      }
     }
   }
 }

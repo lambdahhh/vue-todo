@@ -1,10 +1,15 @@
 <template>
-  <p>All todos: 10, Active: 4, Completed: 6</p>
+  <p>All todos: {{todosCount.all}}, Important: {{todosCount.important}}, Completed: {{todosCount.completed}}</p>
 </template>
 
 <script>
 export default {
-  name: "StatusBar"
+  name: "StatusBar",
+  props: {
+    todosCount: {
+      type: Object
+    }
+  }
 }
 </script>
 
