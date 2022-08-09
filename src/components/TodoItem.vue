@@ -1,9 +1,11 @@
 <template>
   <div class="todo-item">
-    <div>{{ todo.title }}</div>
+    <div
+      :class="todo.important ? 'important' : ''"
+    >{{ todo.title }}</div>
     <div class="btns">
-      <button>Important</button>
-      <button>Delete</button>
+      <button @click="$emit('set-important', todo.id);" class="btn">Important</button>
+      <button class="btn">Delete</button>
     </div>
   </div>
 </template>
@@ -22,16 +24,29 @@ export default {
 
 <style scoped>
   .todo-item {
-    font-weight: bold;
     font-size: 18px;
-    color: tomato;
     margin: 5px;
     padding: 5px;
     border: solid 1px teal;
     display: flex;
     justify-content: space-between;
   }
+  .important {
+    color: tomato;
+    font-weight: bold;
+  }
   .btns * {
     margin-left: 5px;
+  }
+  .btn {
+    background: transparent;
+    border: solid 1px teal;
+    padding: 7px;
+    color: teal;
+  }
+  .btn:hover {
+    background: teal;
+    color: white;
+    cursor: pointer;
   }
 </style>

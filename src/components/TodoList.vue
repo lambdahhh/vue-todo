@@ -3,7 +3,9 @@
     <li
       v-for="todo in todos"
       :key="todo.id"
-    ><TodoItem :todo="todo" /></li>
+    ><TodoItem
+        @setImportant="$emit('set-important', todo.id)"
+        :todo="todo" /></li>
   </ul>
 </template>
 
@@ -17,7 +19,7 @@ export default {
       type: Array,
       required: true
     }
-  }
+  },
 }
 </script>
 

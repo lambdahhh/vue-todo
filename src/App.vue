@@ -1,7 +1,10 @@
 <template>
   <Header />
   <StatusBar :todosCount="todosCount" />
-  <TodoList :todos="todos" />
+  <TodoList
+      :todos="todos"
+      @setImportant="setImportant"
+  />
 </template>
 
 <script>
@@ -28,6 +31,18 @@ export default {
         {id: 12, title: 'TypeScript', completed: false, important: false},
         {id: 13, title: 'C', completed: false, important: false},
       ],
+    }
+  },
+  methods: {
+    setImportant(id) {
+      const idx = this.todos.findIndex(todo => todo.id === id);
+      const todo = this.todos[idx];
+      const newTodo = {...todo, important: !todo.important}
+      this.todos = [
+          ...this.todos.slice(0, idx),
+          newTodo,
+          ...this.todos.slice(idx + 1)
+      ];
     }
   },
   computed: {
