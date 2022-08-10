@@ -1,11 +1,14 @@
 <template>
   <div class="todo-item">
     <div
-      :class="todo.important ? 'important' : ''"
+      :class="{
+        important: todo.important,
+        completed: todo.completed
+      }"
     >{{ todo.title }}</div>
     <div class="btns">
       <button @click="$emit('set-important', todo.id);" class="btn">Important</button>
-      <button class="btn">Delete</button>
+      <button @click="$emit('set-completed', todo.id);" class="btn">Delete</button>
     </div>
   </div>
 </template>
@@ -34,6 +37,9 @@ export default {
   .important {
     color: tomato;
     font-weight: bold;
+  }
+  .completed {
+     text-decoration: line-through;
   }
   .btns * {
     margin-left: 5px;

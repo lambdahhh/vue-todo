@@ -5,6 +5,7 @@
       :key="todo.id"
     ><TodoItem
         @setImportant="$emit('set-important', todo.id)"
+        @setCompleted="$emit('set-completed', todo.id)"
         :todo="todo" /></li>
   </ul>
 </template>

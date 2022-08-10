@@ -1,9 +1,10 @@
 <template>
   <Header />
-  <StatusBar :todosCount="todosCount" />
+  <StatusBar :todosCount="todosCount()" />
   <TodoList
       :todos="todos"
       @setImportant="setImportant"
+      @setCompleted="setCompleted"
   />
 </template>
 
@@ -43,9 +44,17 @@ export default {
           newTodo,
           ...this.todos.slice(idx + 1)
       ];
-    }
-  },
-  computed: {
+    },
+    setCompleted(id) {
+      const idx = this.todos.findIndex(todo => todo.id === id);
+      const todo = this.todos[idx];
+      const newTodo = {...todo, completed: !todo.completed}
+      this.todos = [
+        ...this.todos.slice(0, idx),
+        newTodo,
+        ...this.todos.slice(idx + 1)
+      ];
+    },
     todosCount() {
       const completed = this.todos.filter(todo => todo.completed === true).length;
       const important = this.todos.filter(todo => todo.important === true).length;
@@ -56,7 +65,7 @@ export default {
         important: important
       }
     }
-  }
+  },
 }
 </script>
 
