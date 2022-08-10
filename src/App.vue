@@ -1,8 +1,9 @@
 <template>
   <Header />
-  <StatusBar :todosCount="todosCount()" />
+  <StatusBar :todosCount="todosCount" />
+  <SearchPanel v-model="searchString" />
   <TodoList
-      :todos="todos"
+      :todos="searchTodos"
       @setImportant="setImportant"
       @setCompleted="setCompleted"
   />
@@ -12,9 +13,10 @@
 import Header from "@/components/Header";
 import StatusBar from "@/components/StatusBar";
 import TodoList from "@/components/TodoList";
+import SearchPanel from "@/components/SearchPanel";
 export default {
   name: "App",
-  components: {TodoList, StatusBar, Header},
+  components: {SearchPanel, TodoList, StatusBar, Header},
   data() {
     return {
       todos: [
@@ -32,6 +34,7 @@ export default {
         {id: 12, title: 'TypeScript', completed: false, important: false},
         {id: 13, title: 'C', completed: false, important: false},
       ],
+      searchString: ''
     }
   },
   methods: {
@@ -55,6 +58,8 @@ export default {
         ...this.todos.slice(idx + 1)
       ];
     },
+  },
+  computed: {
     todosCount() {
       const completed = this.todos.filter(todo => todo.completed === true).length;
       const important = this.todos.filter(todo => todo.important === true).length;
@@ -64,8 +69,11 @@ export default {
         completed: completed,
         important: important
       }
+    },
+    searchTodos() {
+      return this.todos.filter(todo => todo.title.toLowerCase().includes(this.searchString.toLowerCase()));
     }
-  },
+  }
 }
 </script>
 
