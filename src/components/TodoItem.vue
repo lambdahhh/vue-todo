@@ -7,8 +7,8 @@
       }"
     >{{ todo.title }}</div>
     <div class="btns">
-      <button @click="$emit('set-important', todo.id);" class="btn">Important</button>
-      <button @click="$emit('set-completed', todo.id);" class="btn">Delete</button>
+      <my-button @click="$emit('set-important', todo.id);" class="btn">Important</my-button>
+      <my-button @click="$emit('set-completed', todo.id);" class="btn">Completed</my-button>
     </div>
   </div>
 </template>
@@ -44,15 +44,5 @@ export default {
   .btns * {
     margin-left: 5px;
   }
-  .btn {
-    background: transparent;
-    border: solid 1px teal;
-    padding: 7px;
-    color: teal;
-  }
-  .btn:hover {
-    background: teal;
-    color: white;
-    cursor: pointer;
-  }
+
 </style>
